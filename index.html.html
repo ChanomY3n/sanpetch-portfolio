@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanpetch Meejue — UX/UI Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+Thai:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0a0a0a;
+      --surface-1:  #0f0f0f;
+      --surface-2:  #111111;
+      --surface-3:  #0d0d0d;
+      --accent:     #E06A4A;
+      --accent-dim: rgba(224,106,74,0.08);
+      --accent-border: rgba(224,106,74,0.35);
+      --border:     #1e1e1e;
+      --text-1:     #ffffff;
+      --text-2:     #888888;
+      --text-3:     #555555;
+      --text-4:     #444444;
+      --radius-card: 10px;
+      --radius-pill: 100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-1);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 2px;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+    }
+
+    .nav-tab {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: #888888;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 6px 18px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .nav-tab:hover { color: #cccccc; }
+    .nav-tab.active {
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 0.5px solid #2a2a2a;
+    }
+
+    .nav-right { display: flex; justify-content: flex-end; }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      gap: 1px;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+    }
+    .lang-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-3);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: color 0.18s, background 0.18s;
+    }
+    .lang-btn.active {
+      background: var(--surface-1);
+      color: var(--text-1);
+      border: 0.5px solid var(--border);
+    }
+    .lang-btn:hover:not(.active) { color: var(--text-2); }
+    .btn-hire {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ffffff;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hire:hover { opacity: 0.85; }
+
+    /* ─── PAGES ─── */
+    .page {
+      display: block;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+      transition: opacity 0.28s ease;
+    }
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+      height: auto;
+      overflow: visible;
+    }
+
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 16px;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    /* ─── SECTION SPACING ─── */
+    .section { margin-bottom: 48px; }
+
+    /* ═══════════════════════════
+       SECTION 1 — HERO PROFILE
+    ═══════════════════════════ */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 40px;
+      padding: 36px 40px;
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+    }
+
+    /* Left column */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      outline: 2px solid rgba(224,106,74,0.25);
+      outline-offset: 3px;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* Hidden file input overlay */
+    .avatar input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    /* Hover overlay hint */
+    .avatar-inner-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .avatar:hover .avatar-inner-overlay { opacity: 1; }
+
+    .avatar-label {
+      font-size: 9px;
+      color: var(--text-4);
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-top: -4px;
+    }
+
+    .hero-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-1);
+      line-height: 1.3;
+    }
+
+    .hero-role {
+      font-size: 11px;
+      color: #666666;
+    }
+
+    .contact-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .contact-pill {
+      font-size: 10px;
+      color: var(--text-2);
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 5px 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .contact-pill:hover { border-color: var(--accent-border); color: var(--text-1); }
+
+    .contact-pill .icon {
+      width: 10px;
+      height: 10px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    /* Right column */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-top: 2px;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .hero-headline {
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--text-1);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-top: -4px;
+    }
+    .hero-headline .hl { color: var(--accent); }
+
+    .hero-body {
+      font-size: 13px;
+      color: #777777;
+      line-height: 1.75;
+      max-width: 580px;
+    }
+
+    .hero-quote {
+      border-left: 2px solid var(--accent);
+      padding: 10px 0 10px 18px;
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-style: italic;
+      max-width: 560px;
+    }
+
+    /* ═══════════════════════════
+       SECTION 2 — STATS BAR
+    ═══════════════════════════ */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .stat-cell {
+      padding: 24px 32px;
+      border-right: 0.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════
+       SECTION 3 — SKILLS
+    ═══════════════════════════ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--surface-3);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .skill-group-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      border: 0.5px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text-2);
+      white-space: nowrap;
+    }
+
+    .tag-accent {
+      color: var(--accent);
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+
+    /* ═══════════════════════════
+       SECTION 4 — WORK EXPERIENCE
+    ═══════════════════════════ */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1px 1fr;
+      gap: 0 28px;
+      padding-bottom: 36px;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-date {
+      font-size: 10px;
+      color: var(--text-3);
+      line-height: 1.5;
+      padding-top: 3px;
+      text-align: right;
+    }
+
+    .timeline-line {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timeline-line::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .timeline-line::after {
+      content: '';
+      flex: 1;
+      width: 0.5px;
+      background: var(--border);
+      margin-top: 6px;
+    }
+    .timeline-item:last-child .timeline-line::after { display: none; }
+
+    .timeline-content {
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timeline-company {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+
+    .timeline-position {
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    .timeline-desc {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    .project-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .project-pill {
+      font-size: 10px;
+      color: var(--text-3);
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+    }
+
+    /* ═══════════════════════════
+       SECTION 5 — EDUCATION & CERTS
+    ═══════════════════════════ */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .edu-card {
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .edu-school {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-1);
+      line-height: 1.4;
+    }
+
+    .edu-degree {
+      font-size: 11px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+
+    .edu-year {
+      font-size: 10px;
+      color: var(--text-3);
+    }
+
+    .edu-note {
+      font-size: 11px;
+      color: var(--text-2);
+      line-height: 1.65;
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    .cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cert-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .cert-year {
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .cert-name {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.4;
+    }
+
+    .cert-issuer {
+      font-size: 10px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════
+       SECTION 6 — CONTACT
+    ═══════════════════════════ */
+    .contact-section {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface-1);
+      padding: 72px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 28px;
+    }
+
+    .contact-heading {
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--text-1);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      max-width: 520px;
+      text-wrap: pretty;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-detail {
+      font-size: 13px;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .contact-detail:hover { color: var(--text-1); }
+
+    .btn-contact {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+      margin-top: 4px;
+    }
+    .btn-contact:hover { opacity: 0.85; }
+
+    /* ═══════════════════════════
+       PROJECTS PAGE
+    ═══════════════════════════ */
+
+    /* Header */
+    .projects-header {
+      margin-bottom: 32px;
+    }
+    .projects-title {
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--text-1);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .projects-subtitle {
+      font-size: 13px;
+      color: var(--text-3);
+      line-height: 1.6;
+    }
+
+    /* Filter pills */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .filter-pill {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #666666;
+      background: transparent;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 6px 16px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filter-pill:hover { color: var(--text-1); border-color: #333; }
+    .filter-pill.active {
+      color: var(--accent);
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+
+    /* Project Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* Card mockup image area */
+    .card-image {
+      width: calc(100% + 48px);
+      height: 160px;
+      border-radius: 8px 8px 0 0;
+      margin: -24px -24px 0 -24px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover .card-image img { transform: scale(1.03); }
+
+    .card-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(224,106,74,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .project-card:hover .card-image-overlay { opacity: 1; }
+
+    .project-card {
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      background: #141414;
+      border-color: #2a2a2a;
+    }
+    .project-card.hidden { display: none; }
+
+    /* Coral arrow on hover */
+    .project-card::after {
+      content: '→';
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      font-size: 14px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+    .project-card:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 24px;
+    }
+    .card-number {
+      font-size: 10px;
+      color: var(--text-4);
+      letter-spacing: 0.08em;
+    }
+
+    /* Category badges */
+    .badge {
+      font-size: 10px;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      border: 0.5px solid;
+    }
+    .badge-insurtech  { color: #7F77DD; background: rgba(127,119,221,0.06); border-color: rgba(127,119,221,0.3); }
+    .badge-fintech    { color: #5DCAA5; background: rgba(93,202,165,0.06);  border-color: rgba(93,202,165,0.3); }
+    .badge-marketplace{ color: #E06A4A; background: rgba(224,106,74,0.06); border-color: rgba(224,106,74,0.3); }
+    .badge-govtech    { color: #378ADD; background: rgba(55,138,221,0.06);  border-color: rgba(55,138,221,0.3); }
+    .badge-logistics  { color: #EF9F27; background: rgba(239,159,39,0.06); border-color: rgba(239,159,39,0.3); }
+    .badge-pos        { color: #D4537E; background: rgba(212,83,126,0.06); border-color: rgba(212,83,126,0.3); }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-1);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .card-client {
+      font-size: 11px;
+      color: var(--text-3);
+      margin-top: -6px;
+    }
+    .card-desc {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Impact metrics */
+    .impact-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .impact-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .impact-number {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .impact-label {
+      font-size: 9px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* Story grid */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 0.5px solid var(--border);
+      margin-top: 4px;
+    }
+    .story-block {
+      padding: 12px 14px;
+      border-right: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .story-block:nth-child(even) { border-right: none; }
+    .story-block:nth-child(3),
+    .story-block:nth-child(4) { border-bottom: none; }
+    .story-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .story-text {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Mini cards (additional projects) */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .mini-card {
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .mini-card:hover { background: #141414; border-color: #2a2a2a; }
+    .mini-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+    .mini-desc {
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    /* ═══════════════════════════
+       WHAT I DO SECTION
+    ═══════════════════════════ */
+    .whatido-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .whatido-card {
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .whatido-card:hover { background: #141414; border-color: #2a2a2a; }
+
+    .whatido-card-cta {
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+    .whatido-card-cta:hover { background: rgba(224,106,74,0.1); border-color: rgba(224,106,74,0.5); }
+
+    .whatido-icon {
+      color: var(--text-3);
+      margin-bottom: 2px;
+    }
+
+    .whatido-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+
+    .whatido-desc {
+      font-size: 11px;
+      color: var(--text-3);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .whatido-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .whatido-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════
+       SECTION ANIMATIONS
+    ═══════════════════════════ */
+    .animate-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .animate-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .animate-section:nth-child(2) { transition-delay: 0.05s; }
+    .animate-section:nth-child(3) { transition-delay: 0.1s; }
+    .animate-section:nth-child(4) { transition-delay: 0.15s; }
+    .animate-section:nth-child(5) { transition-delay: 0.2s; }
+
+    /* Card stagger */
+    .project-card {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .project-card.hidden { display: none !important; }
+
+    /* ═══════════════════════════
+       SCROLL PROGRESS BAR
+    ═══════════════════════════ */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ═══════════════════════════
+       AVAILABLE FOR WORK BADGE
+    ═══════════════════════════ */
+    .available-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: #5DCB8A;
+      background: rgba(93,203,138,0.06);
+      border: 0.5px solid rgba(93,203,138,0.25);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+    .available-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #5DCB8A;
+      flex-shrink: 0;
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ═══════════════════════════
+       CV DOWNLOAD BUTTON
+    ═══════════════════════════ */
+    .btn-cv {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-2);
+      background: transparent;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 7px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .btn-cv:hover { color: var(--text-1); border-color: #333; }
+
+    /* ═══════════════════════════
+       IMAGE SKELETON LOADING
+    ═══════════════════════════ */
+    .card-image img, .panel-hero img {
+      background: #111;
+    }
+    .card-image {
+      background: #111;
+    }
+    @keyframes shimmer {
+      0% { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+    .img-skeleton {
+      background: linear-gradient(90deg, #111 25%, #1a1a1a 50%, #111 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite linear;
+    }
+
+    /* ═══════════════════════════
+       RESPONSIVE — MOBILE
+    ═══════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-inner { grid-template-columns: 1fr auto; gap: 8px; }
+      .nav-right { display: none; }
+      .nav-logo { font-size: 11px; }
+      .nav-tab { padding: 5px 12px; font-size: 11px; }
+
+      .page { padding: 28px 16px 60px; }
+
+      /* Hero */
+      .hero-grid { grid-template-columns: 1fr; gap: 0; padding: 20px; }
+      .hero-left { flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .avatar { width: 56px; height: 56px; font-size: 14px; }
+      .avatar-label { display: none; }
+      .contact-pills { display: none; }
+      .hero-right { padding-top: 12px; }
+      .hero-headline { font-size: 20px; }
+      .hero-body { font-size: 12px; }
+      .hero-quote { font-size: 11px; }
+
+      /* Stats */
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(3) { border-top: 0.5px solid var(--border); }
+      .stat-cell:nth-child(4) { border-top: 0.5px solid var(--border); border-right: none; }
+
+      /* Skills */
+      .skills-grid { grid-template-columns: 1fr; }
+
+      /* Timeline */
+      .timeline-item { grid-template-columns: 80px 1px 1fr; gap: 0 16px; }
+      .timeline-date { font-size: 9px; }
+
+      /* Education */
+      .edu-grid { grid-template-columns: 1fr; }
+
+      /* Projects */
+      .project-grid { grid-template-columns: 1fr; }
+      .mini-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Detail panel */
+      .detail-panel { width: 100vw; }
+      .panel-ps-grid { grid-template-columns: 1fr; }
+      .panel-overview { grid-template-columns: 1fr; }
+      .panel-overview-cell { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .panel-overview-cell:last-child { border-bottom: none; }
+
+      /* Contact */
+      .contact-section { padding: 40px 20px; }
+      .contact-heading { font-size: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-bar { grid-template-columns: 1fr; }
+      .stat-cell { border-right: none !important; border-top: 0.5px solid var(--border); }
+      .stat-cell:first-child { border-top: none; }
+      .mini-grid { grid-template-columns: 1fr; }
+    }
+    .panel-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 200; opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .panel-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .detail-panel {
+      position: fixed; top: 0; right: 0;
+      width: min(680px, 100vw); height: 100vh;
+      background: #0d0d0d;
+      border-left: 0.5px solid var(--border);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .detail-panel.open { transform: translateX(0); }
+
+    .panel-header {
+      position: sticky; top: 0; z-index: 10;
+      background: #0d0d0d;
+      border-bottom: 0.5px solid var(--border);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .panel-header-left { display: flex; align-items: center; gap: 12px; }
+    .panel-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--surface-2); border: 0.5px solid var(--border);
+      color: var(--text-2); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s, color 0.18s; flex-shrink: 0;
+    }
+    .panel-close:hover { background: #1e1e1e; color: var(--text-1); }
+    .panel-nav { display: flex; gap: 6px; }
+    .panel-nav-btn {
+      font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-3);
+      background: transparent; border: 0.5px solid var(--border);
+      border-radius: var(--radius-pill); padding: 4px 12px;
+      cursor: pointer; transition: color 0.18s, border-color 0.18s;
+    }
+    .panel-nav-btn:hover { color: var(--text-1); border-color: #333; }
+
+    .panel-hero { width: 100%; height: 220px; overflow: hidden; flex-shrink: 0; position: relative; }
+    .panel-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .panel-hero-placeholder {
+      width: 100%; height: 100%; background: #111;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .panel-hero-placeholder span { font-size: 40px; font-weight: 500; color: #1e1e1e; letter-spacing: -0.03em; }
+    .panel-hero-badge { position: absolute; bottom: 16px; left: 24px; }
+
+    .panel-body { padding: 28px 24px 64px; display: flex; flex-direction: column; gap: 30px; }
+    .panel-title { font-size: 22px; font-weight: 500; color: var(--text-1); letter-spacing: -0.02em; line-height: 1.25; }
+    .panel-client { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+
+    .panel-overview {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border: 0.5px solid var(--border); border-radius: var(--radius-card); overflow: hidden;
+    }
+    .panel-overview-cell { padding: 14px 16px; border-right: 0.5px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+    .panel-overview-cell:last-child { border-right: none; }
+    .panel-overview-label { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-4); }
+    .panel-overview-value { font-size: 12px; color: var(--text-2); line-height: 1.4; }
+
+    .panel-section { display: flex; flex-direction: column; gap: 12px; }
+    .panel-section-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+    .panel-section-text { font-size: 13px; color: #6a6a6a; line-height: 1.75; }
+
+    .panel-ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .panel-ps-card { background: var(--surface-2); border: 0.5px solid var(--border); border-radius: var(--radius-card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+    .panel-ps-label { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-4); }
+    .panel-ps-text { font-size: 12px; color: #6a6a6a; line-height: 1.65; }
+
+    .panel-process { display: flex; flex-direction: column; gap: 0; }
+    .panel-process-step { display: grid; grid-template-columns: 20px 1fr; gap: 12px; padding-bottom: 18px; align-items: start; }
+    .panel-process-step:last-child { padding-bottom: 0; }
+    .panel-step-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 5px; flex-shrink: 0; }
+    .panel-step-name { font-size: 12px; font-weight: 500; color: var(--text-1); }
+    .panel-step-desc { font-size: 11px; color: var(--text-3); line-height: 1.6; margin-top: 2px; }
+
+    .panel-impact { display: flex; gap: 10px; flex-wrap: wrap; }
+    .panel-impact-cell { background: var(--surface-2); border: 0.5px solid var(--border); border-radius: var(--radius-card); padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 90px; }
+    .panel-impact-number { font-size: 18px; font-weight: 500; color: var(--accent); letter-spacing: -0.02em; }
+    .panel-impact-label { font-size: 9px; color: var(--text-3); letter-spacing: 0.04em; }
+
+    .panel-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .panel-gallery-img { border-radius: var(--radius-card); overflow: hidden; border: 0.5px solid var(--border); aspect-ratio: 16/9; background: var(--surface-2); }
+    .panel-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .panel-gallery-img.wide { grid-column: span 2; aspect-ratio: 16/7; }
+
+    .panel-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .panel-tag { font-size: 10px; color: var(--text-2); background: var(--surface-2); border: 0.5px solid var(--border); border-radius: var(--radius-pill); padding: 4px 12px; }
+  </style>
+</head>
+<body>
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#" onclick="showPage('about'); return false;">Sanpetch Meejue</a>
+      <div class="nav-tabs">
+        <button class="nav-tab active" id="tab-about" onclick="showPage('about')" data-i18n="nav_about">About &amp; Experience</button>
+        <button class="nav-tab" id="tab-projects" onclick="showPage('projects')" data-i18n="nav_projects">Projects</button>
+      </div>
+      <div class="nav-right">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="btn-th" onclick="setLang('th')">TH</button>
+        </div>
+        <a class="btn-hire" href="uploads/Resume_Sanpetch Meejue.pdf" download="Resume_Sanpetch_Meejue.pdf" style="margin-left:8px;" data-i18n="hire_me">Download Resume</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+       ABOUT & EXPERIENCE PAGE
+  ══════════════════════════════════ -->
+  <main id="page-about" class="page active">
+
+    <!-- SECTION 1: HERO PROFILE -->
+    <section class="section animate-section">
+      <div class="hero-grid">
+
+        <!-- Left -->
+        <div class="hero-left">
+          <div class="avatar" id="avatar-wrap">
+            <img id="avatar-img" src="uploads/Gemini_Generated_Image_fjukp9fjukp9fjuk-6f6b73e3.png" alt="Sanpetch Meejue" />
+            <div class="avatar-inner-overlay">↑</div>
+            <input type="file" accept="image/*" onchange="handleAvatarUpload(event)" title="Upload your photo" />
+          </div>
+
+          <div>
+            <div class="hero-name">Sanpetch Meejue</div>
+            <div class="hero-role">Senior UX/UI Designer</div>
+          </div>
+          <div class="contact-pills">
+            <a class="contact-pill" href="mailto:Sanpetch.me@gmail.com">
+              <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.2"/></svg>
+              Sanpetch.me@gmail.com
+            </a>
+            <a class="contact-pill" href="tel:0802249608">
+              <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h3l1.5 3.5-1.5 1a8 8 0 003.5 3.5l1-1.5L14 10v3a1 1 0 01-1 1C5.5 14 2 7.5 2 3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              080-2249608
+            </a>
+            <a class="contact-pill" href="https://behance.net" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="12" font-size="10" fill="currentColor" font-family="sans-serif">Be</text></svg>
+              Chanom' Yen
+            </a>
+            <a class="contact-pill" href="https://linkedin.com" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 6.5v5M4 4v.5M7 11.5v-3a1.5 1.5 0 013 0v3M7 6.5v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              Sanpetch Meejue
+            </a>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div class="hero-right">
+          <div class="hero-eyebrow" data-i18n="hero_eyebrow">Profile · Bangkok, Thailand</div>
+          <div class="hero-headline">Design that <span class="hl" data-i18n="hero_hl">decides</span>,<br><span data-i18n="hero_sub">not just decorates.</span></div>
+          <div class="hero-body" data-i18n="hero_body">Senior UX/UI Designer with 5+ years specializing in Enterprise Design Systems and Inclusive Design. Proven track record leading digital transformations for finance and insurance sectors — using data-driven insights and AI-integrated workflows to optimize real business outcomes.</div>
+          <blockquote class="hero-quote" data-i18n="hero_quote">I believe every pixel should have a purpose and every design should tell a story. My mission is to create intuitive, inclusive, and delightful digital experiences that make people's lives easier.</blockquote>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+            <div class="available-badge" style="display:flex;"><span class="available-dot"></span><span data-i18n="open_to_work">Open to work</span></div>
+            <a class="btn-cv" href="uploads/Portfolio UXUI.pdf" download="Sanpetch_Meejue_Portfolio.pdf">
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="download_cv">Download Portfolio</span>
+            </a>
+            <a class="btn-cv" href="uploads/CV_Sanpetch Meejue.pdf" download="CV_Sanpetch_Meejue.pdf">
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="download_resume">Download CV</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: STATS BAR -->
+    <section class="section animate-section">
+      <div class="stats-bar">
+        <div class="stat-cell">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years experience</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">−35%</div>
+          <div class="stat-label">Drop-off reduced (Insurverse)</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">+25%</div>
+          <div class="stat-label">Loan conversion (Roddonjai)</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">4.8/5</div>
+          <div class="stat-label">CSAT achieved</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SKILLS -->
+    <section class="section animate-section">
+      <div class="section-label" data-i18n="section_skills">Skills</div>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-group-title">Strategic</div>
+          <div class="tags">
+            <span class="tag tag-accent">User Research</span>
+            <span class="tag tag-accent">Design Thinking</span>
+            <span class="tag tag-accent">WCAG Accessibility</span>
+            <span class="tag">Information Architecture</span>
+            <span class="tag">Inclusive Design</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-group-title">Technical Mastery</div>
+          <div class="tags">
+            <span class="tag tag-accent">Figma (Expert)</span>
+            <span class="tag tag-accent">Design System Architecture</span>
+            <span class="tag">ProtoPie</span>
+            <span class="tag">Framer</span>
+            <span class="tag">Miro</span>
+            <span class="tag">Adobe XD</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-group-title">AI-Powered Workflow</div>
+          <div class="tags">
+            <span class="tag tag-accent">Claude / GPT</span>
+            <span class="tag">Midjourney</span>
+            <span class="tag">Figma AI</span>
+            <span class="tag">Relume</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-group-title">Leadership</div>
+          <div class="tags">
+            <span class="tag">Stakeholder Management</span>
+            <span class="tag">Cross-functional Collaboration</span>
+            <span class="tag">Mentoring</span>
+            <span class="tag">Usability Testing</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3.5: WHAT I DO -->
+    <section class="section animate-section">
+      <div class="section-label" data-i18n="section_whatido">What I Do</div>
+      <div class="whatido-grid">
+
+        <div class="whatido-card">
+          <div class="whatido-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_research_title">User Research</div>
+          <div class="whatido-desc" data-i18n="wi_research_desc">In-depth interviews, usability testing, card sorting, and heuristic evaluation to uncover real user needs and friction points.</div>
+        </div>
+
+        <div class="whatido-card">
+          <div class="whatido-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_ia_title">Information Architecture</div>
+          <div class="whatido-desc" data-i18n="wi_ia_desc">Structuring complex systems into clear, navigable hierarchies. Wireframes, user flows, and journey maps that align business goals with user needs.</div>
+        </div>
+
+        <div class="whatido-card">
+          <div class="whatido-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_ds_title">Design Systems</div>
+          <div class="whatido-desc" data-i18n="wi_ds_desc">Architecting scalable component libraries in Figma with design tokens, WCAG AA compliance, and developer-ready handoff documentation.</div>
+        </div>
+
+        <div class="whatido-card">
+          <div class="whatido-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_ui_title">UI Design</div>
+          <div class="whatido-desc" data-i18n="wi_ui_desc">Pixel-precise, mobile-first interfaces for web and app — balancing visual aesthetics with functional clarity across enterprise and consumer products.</div>
+        </div>
+
+        <div class="whatido-card">
+          <div class="whatido-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_proto_title">Prototyping</div>
+          <div class="whatido-desc" data-i18n="wi_proto_desc">High-fidelity interactive prototypes in Figma and ProtoPie — validating complex interactions before a single line of code is written.</div>
+        </div>
+
+        <div class="whatido-card whatido-card-cta">
+          <div class="whatido-icon" style="color: var(--accent);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14M5 9l7 7 7-7"/><path d="M3 20h18"/></svg>
+          </div>
+          <div class="whatido-title" data-i18n="wi_pres_title">UX/UI Presentation</div>
+          <div class="whatido-desc" data-i18n="wi_pres_desc">Full process deck — research, IA, wireframes, UI, and outcomes. Download to see the complete design thinking behind the work.</div>
+          <a class="btn-cv" href="uploads/Presentation UX.pdf" download="Presentation_UX_Sanpetch.pdf" style="margin-top:8px; border-color: var(--accent-border); color: var(--accent);">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="wi_pres_btn">Download Presentation</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: WORK EXPERIENCE -->
+    <section class="section animate-section">
+      <div class="section-label" data-i18n="section_experience">Work Experience</div>
+      <div class="timeline">
+
+        <!-- Job 1 -->
+        <div class="timeline-item">
+          <div class="timeline-date">Apr 2022 – Present<br><span style="color:var(--text-4)">3 yrs+</span></div>
+          <div class="timeline-line"></div>
+          <div class="timeline-content">
+            <div class="timeline-company">Extend IT Resource Co., Ltd.</div>
+            <div class="timeline-position">UX/UI Designer (Senior)</div>
+            <div class="timeline-desc" data-i18n="exp1_desc1">Facilitated strategic collaboration with product managers, stakeholders, and engineering teams to translate complex business requirements into intuitive, high-performing design strategies. Spearheaded end-to-end UX/UI lifecycle from discovery and research to final delivery for high-traffic enterprise platforms — significantly enhancing user engagement and brand credibility.</div>
+            <div class="timeline-desc" data-i18n="exp1_desc2" style="margin-top:6px;">Architected and governed scalable Design Systems in Figma, streamlining design-to-development handoff and ensuring 100% visual consistency. Championed Inclusive Design and WCAG accessibility standards. Drove data-informed design decisions by leading usability testing and user research initiatives to resolve critical friction points.</div>
+            <div class="project-pills">
+              <span class="project-pill">Insurverse</span>
+              <span class="project-pill">Roddonjai-TTB</span>
+              <span class="project-pill">BKI Revamp</span>
+              <span class="project-pill">Money DD</span>
+              <span class="project-pill">ThaiBev</span>
+              <span class="project-pill">Singer</span>
+              <span class="project-pill">Good Money GSB</span>
+              <span class="project-pill">GISTDA</span>
+              <span class="project-pill">Job Sync</span>
+              <span class="project-pill">Smart Ticket</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="timeline-item">
+          <div class="timeline-date">Oct 2021 – Jun 2022<br><span style="color:var(--text-4)">9 mos</span></div>
+          <div class="timeline-line"></div>
+          <div class="timeline-content">
+            <div class="timeline-company">1577 Home Shopping Co., Ltd.</div>
+            <div class="timeline-position">UX/UI Designer</div>
+            <div class="timeline-desc" data-i18n="exp2_desc">Designed UI for Web and App media. Developed print, online, and advertising designs aligned with brand guidelines.</div>
+          </div>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="timeline-item">
+          <div class="timeline-date">Jun 2020 – Oct 2021<br><span style="color:var(--text-4)">1 yr 4 mos</span></div>
+          <div class="timeline-line"></div>
+          <div class="timeline-content">
+            <div class="timeline-company">Running Connect Co., Ltd.</div>
+            <div class="timeline-position">Graphic Designer</div>
+            <div class="timeline-desc" data-i18n="exp3_desc">Produced promotional graphics, infographics, and digital marketing materials. Designed merchandise and event branding.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: EDUCATION & CERTIFICATES -->
+    <section class="section animate-section">
+      <div class="section-label" data-i18n="section_education">Education &amp; Certificates</div>
+      <div class="edu-grid">
+
+        <!-- Education -->
+        <div class="edu-card">
+          <div class="skill-group-title">Education</div>
+          <div>
+            <div class="edu-school">Suan Sunandha Rajabhat University</div>
+            <div class="edu-degree">B.Tech — Computer Application for Architecture</div>
+            <div class="edu-year">2016 – 2020</div>
+          </div>
+          <div class="edu-note">Research presented at 3rd FIT SSRU Conference 2020 — Media Design for Mobile Application.</div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="edu-card">
+          <div class="skill-group-title">Certificates</div>
+          <div class="cert-list">
+            <div class="cert-item">
+              <div class="cert-year">2026</div>
+              <div>
+                <div class="cert-name">AI for Software Development</div>
+                <div class="cert-issuer">IMC Institute</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-year">2024</div>
+              <div>
+                <div class="cert-name">IT Analysis &amp; Wireframe Design on Figma</div>
+                <div class="cert-issuer">FutureSkill</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-year">2024</div>
+              <div>
+                <div class="cert-name">UX Design: Customer Loyalty</div>
+                <div class="cert-issuer">FutureSkill</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-year">2022</div>
+              <div>
+                <div class="cert-name">Designing UX/UI to Meet User Needs</div>
+                <div class="cert-issuer">RMUTSB</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-year">2022</div>
+              <div>
+                <div class="cert-name">NFT 10,000 Random Generation</div>
+                <div class="cert-issuer">Digit Soul Co., Ltd.</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-year">2020</div>
+              <div>
+                <div class="cert-name">Media Design for Mobile Application</div>
+                <div class="cert-issuer">SSRU</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT -->
+    <section class="section animate-section">
+      <div class="contact-section">
+        <div class="contact-heading" data-i18n="contact_heading">Let's build something people actually use.</div>
+        <div class="contact-details">
+          <a class="contact-detail" href="mailto:Sanpetch.me@gmail.com">Sanpetch.me@gmail.com</a>
+          <a class="contact-detail" href="tel:0802249608">080-2249608</a>
+          <a class="contact-detail" href="https://www.behance.net/chanom-yen" target="_blank" rel="noopener">Behance — Chanom' Yen</a>
+          <a class="contact-detail" href="https://www.linkedin.com/in/sanpetch-meejue" target="_blank" rel="noopener">LinkedIn — Sanpetch Meejue</a>
+        </div>
+        <a class="btn-contact" href="uploads/Resume_Sanpetch Meejue.pdf" download="Resume_Sanpetch_Meejue.pdf" data-i18n="contact_btn">Download Resume</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════
+       PROJECTS PAGE
+  ══════════════════════════════════ -->
+  <main id="page-projects" class="page">
+
+    <!-- HEADER -->
+    <div class="projects-header">
+      <div class="projects-title" data-i18n="projects_title">Projects</div>
+      <div class="projects-subtitle" data-i18n="projects_subtitle">Real constraints, real decisions, real impact — the full story behind every project.</div>
+      <div class="filter-row" id="filter-row">
+        <button class="filter-pill active" data-filter="all" onclick="filterProjects('all')">All</button>
+        <button class="filter-pill" data-filter="insurtech" onclick="filterProjects('insurtech')">InsurTech</button>
+        <button class="filter-pill" data-filter="fintech" onclick="filterProjects('fintech')">FinTech</button>
+        <button class="filter-pill" data-filter="marketplace" onclick="filterProjects('marketplace')">E-Marketplace</button>
+        <button class="filter-pill" data-filter="govtech" onclick="filterProjects('govtech')">GovTech</button>
+        <button class="filter-pill" data-filter="logistics" onclick="filterProjects('logistics')">Logistics</button>
+        <button class="filter-pill" data-filter="pos" onclick="filterProjects('pos')">POS</button>
+      </div>
+    </div>
+
+    <!-- PROJECT GRID -->
+    <div class="project-grid" id="project-grid">
+
+      <!-- 01 INSURVERSE -->
+      <div class="project-card" data-category="insurtech" onclick="openPanel('insurverse')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Insurverse.png" alt="Insurverse mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">01</span>
+          <span class="badge badge-insurtech">InsurTech</span>
+        </div>
+        <div class="card-title">Insurverse</div>
+        <div class="card-client">Extend IT Resource · 2022–Present</div>
+        <div class="card-desc">Online car insurance platform — search, compare, buy, e-inspect end-to-end. Complex 7-step inspection flow was causing 45% abandonment.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">−35%</div>
+            <div class="impact-label">Drop-off rate</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">4.8/5</div>
+            <div class="impact-label">CSAT score</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">WCAG AA</div>
+            <div class="impact-label">Compliant</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">Fixed 6-week sprint, mid-range phones only, no native app budget.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Step-by-step + QR deep-link over native flow — zero install friction.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Stakeholder pushed for more features. Usability data showed users left at step 3/7. We simplified.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Dropped animations. Gained 100% Design System consistency across all screens.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 RODDONJAI -->
+      <div class="project-card" data-category="marketplace" onclick="openPanel('roddonjai')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Roddonjai.png" alt="Roddonjai mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">02</span>
+          <span class="badge badge-marketplace">E-Marketplace</span>
+        </div>
+        <div class="card-title">Roddonjai · TTB Bank</div>
+        <div class="card-client">Extend IT Resource · TTB Bank</div>
+        <div class="card-desc">Used-car marketplace with 50,000+ listings. Overwhelming technical data made buyers unable to decide.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">+25%</div>
+            <div class="impact-label">Loan apps (month 1)</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">+18%</div>
+            <div class="impact-label">Card engagement (A/B)</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">TTB brand guidelines non-negotiable. 10+ data sources with inconsistent fields.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Surface only 3 key signals on card (price, grade, mileage). Rest in detail view.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Sales wanted every spec visible. A/B test: minimal card won by +18% engagement.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">More clicks to detail — but users who clicked were 3× more likely to apply.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 BKI REVAMP -->
+      <div class="project-card" data-category="insurtech" onclick="openPanel('bki')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/กรุงเทพประกันภัย.png" alt="BKI Revamp mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">03</span>
+          <span class="badge badge-insurtech">InsurTech</span>
+        </div>
+        <div class="card-title">Bangkok Insurance (BKI) Revamp</div>
+        <div class="card-client">Extend IT Resource</div>
+        <div class="card-desc">Full web revamp with no existing design system. Had to build the DS and redesign simultaneously.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">WCAG AA</div>
+            <div class="impact-label">Full compliance</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">1 DS</div>
+            <div class="impact-label">Powers 3 products</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">−4 wks</div>
+            <div class="impact-label">Dev handoff saved</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">No DS existed. Had to build it while redesigning in 3 months.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">DS first — 2 weeks upfront cost saved 4 weeks of rework.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">PM wanted to skip accessibility. Framed as legal risk + market reach — it became priority.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Delayed 2 feature screens. Gained DS the dev team owns independently.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 GOOD MONEY GSB -->
+      <div class="project-card" data-category="fintech" onclick="openPanel('goodmoney')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Good Money.png" alt="Good Money GSB mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">04</span>
+          <span class="badge badge-fintech">FinTech</span>
+        </div>
+        <div class="card-title">Good Money · GSB</div>
+        <div class="card-client">Government Savings Bank</div>
+        <div class="card-desc">Personal loan mobile app. Users needed to simulate repayment schedules before applying — reducing anxiety around financial decisions.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">Mobile-first</div>
+            <div class="impact-label">Responsive</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">All ages</div>
+            <div class="impact-label">Inclusive design</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">Government branding strict. Target users include elderly and low-digital-literacy groups.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Large touch targets, high-contrast UI, plain language over financial jargon.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Product team wanted more features. User research showed confusion increased with each added field.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Simplified UI meant fewer advanced features — prioritized confidence over capability.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 GISTDA -->
+      <div class="project-card" data-category="govtech" onclick="openPanel('gistda')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Green Office.png" alt="GISTDA Green Office mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">05</span>
+          <span class="badge badge-govtech">GovTech</span>
+        </div>
+        <div class="card-title">GISTDA Green Office</div>
+        <div class="card-client">Geo-Informatics &amp; Space Technology Agency</div>
+        <div class="card-desc">Centralized platform for environmental policies, energy stats, and green campaigns — serving 3 very different user groups.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">3 types</div>
+            <div class="impact-label">User roles served</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">CSV/PDF</div>
+            <div class="impact-label">Export dashboard</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">3 user groups (staff, executives, public) with conflicting needs on one platform.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Role-based information architecture — same data, different entry points per user.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Executives wanted summaries. Staff needed details. Public needed education.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">More complex IA upfront — but reduced support requests significantly post-launch.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 JOB SYNC -->
+      <div class="project-card" data-category="marketplace" onclick="openPanel('jobsync')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Job Sync.png" alt="Job Sync mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">06</span>
+          <span class="badge badge-marketplace">E-Marketplace</span>
+        </div>
+        <div class="card-title">Job Sync</div>
+        <div class="card-client">Extend IT Resource</div>
+        <div class="card-desc">Online job search platform for speed, accuracy, and match quality — serving fresh grads to C-suite.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">1-click</div>
+            <div class="impact-label">Apply system</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">AI</div>
+            <div class="impact-label">Job recommendations</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">Must serve fresh graduates to C-suite — completely different mental models.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Unified search with progressive disclosure — simple by default, powerful on demand.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Recruiters wanted more filter options. Job seekers wanted fewer clicks. Advanced filters hidden by default.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Power users need one extra click — but new user conversion improved significantly.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 HONEY BADGER -->
+      <div class="project-card" data-category="logistics" onclick="openPanel('honeybadger')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Honey Badger.png" alt="Honey Badger mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">07</span>
+          <span class="badge badge-logistics">Logistics</span>
+        </div>
+        <div class="card-title">Honey Badger · GB Limousine</div>
+        <div class="card-client">GB Limousine</div>
+        <div class="card-desc">VIP limousine and fast-track airport service booking. Luxury brand aesthetic while keeping booking frictionless.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">Luxury</div>
+            <div class="impact-label">Brand identity</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">Real-time</div>
+            <div class="impact-label">Availability</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">Luxury aesthetic demanded — but must work on any device, any context.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Dark premium UI with large imagery — but no performance sacrifice on load time.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Brand team wanted full-page hero images. Performance budget disagreed.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Heavy imagery vs performance — resolved with lazy loading + optimized assets.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08 SMART TICKET -->
+      <div class="project-card" data-category="pos" onclick="openPanel('smartticket')" style="cursor:pointer;">
+        <div class="card-image">
+          <img src="uploads/Smart Ticket.png" alt="Smart Ticket mockup" />
+          <div class="card-image-overlay"></div>
+        </div>
+        <div class="card-top-row">
+          <span class="card-number">08</span>
+          <span class="badge badge-pos">POS</span>
+        </div>
+        <div class="card-title">Smart Ticket · POS Solution</div>
+        <div class="card-client">Tourist Attractions Management</div>
+        <div class="card-desc">Ticket sales POS system for tourist attractions. Multi-currency support for Thai and international visitors.</div>
+        <div class="impact-row">
+          <div class="impact-metric">
+            <div class="impact-number">4 currencies</div>
+            <div class="impact-label">LAK, THB, USD, CNY</div>
+          </div>
+          <div class="impact-metric">
+            <div class="impact-number">Real-time</div>
+            <div class="impact-label">Availability</div>
+          </div>
+        </div>
+        <div class="story-grid">
+          <div class="story-block">
+            <div class="story-label">Constraint</div>
+            <div class="story-text">Staff have minimal training time. Must work under high-traffic, high-stress conditions.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Decision</div>
+            <div class="story-text">Single-screen workflow — all ticket types, pricing, and currency visible at once.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Conflict</div>
+            <div class="story-text">Management wanted more screens for "clarity". Staff testing showed one screen was faster.</div>
+          </div>
+          <div class="story-block">
+            <div class="story-label">Trade-off</div>
+            <div class="story-text">Denser UI — but trained staff in under 20 minutes vs 2-hour onboarding planned.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /project-grid -->
+
+    <!-- ADDITIONAL PROJECTS -->
+    <div class="section-label" style="margin-top: 48px;" data-i18n="also_shipped">Also shipped</div>
+    <div class="mini-grid">
+      <div class="mini-card">
+        <div class="mini-title">Money DD</div>
+        <div class="mini-desc">Personal loan app · KBank Sugarcane</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-title">MC Andrew &amp; Partners</div>
+        <div class="mini-desc">Business &amp; financial dashboard</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-title">ThaiBev</div>
+        <div class="mini-desc">Employee promotions management app</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-title">Singer</div>
+        <div class="mini-desc">E-commerce platform app</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-title">BLA Insurance</div>
+        <div class="mini-desc">Online insurance web platform</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-title">Prompt Post</div>
+        <div class="mini-desc">Document management web system</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function handleAvatarUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('avatar-img').src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('scroll-progress').style.width = pct + '%';
+    });
+
+    // ─── SECTION ANIMATIONS (Intersection Observer) ───
+    const animObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    function initAnimations() {
+      document.querySelectorAll('.animate-section, .project-card:not(.hidden)').forEach((el, i) => {
+        // stagger project cards
+        if (el.classList.contains('project-card')) {
+          el.style.transitionDelay = (i % 2 === 0 ? 0 : 0.08) + 's';
+        }
+        animObserver.observe(el);
+      });
+    }
+    // Run on load
+    window.addEventListener('load', initAnimations);
+    // Re-run when switching pages
+    const _origShowPage = window.showPage;
+    window.showPage = function(id) {
+      _origShowPage(id);
+      setTimeout(initAnimations, 220);
+    };
+
+    // Skeleton shimmer on card images
+    document.querySelectorAll('.card-image img, .panel-hero img').forEach(img => {
+      if (!img.complete) {
+        img.closest('.card-image, .panel-hero').classList.add('img-skeleton');
+        img.addEventListener('load', () => {
+          img.closest('.card-image, .panel-hero').classList.remove('img-skeleton');
+        });
+      }
+    });
+
+    function showPage(id) {
+      const pages = document.querySelectorAll('.page');
+      const tabs  = document.querySelectorAll('.nav-tab');
+      const target = document.getElementById('page-' + id);
+
+      // If already active, do nothing
+      if (target.classList.contains('active')) return;
+
+      // Update tabs immediately
+      tabs.forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+
+      // Fade out current page, then swap
+      const current = document.querySelector('.page.active');
+      if (current) {
+        current.style.opacity = '0';
+        setTimeout(() => {
+          current.classList.remove('active');
+          target.classList.add('active');
+          // scroll to top
+          window.scrollTo(0, 0);
+        }, 200);
+      } else {
+        target.classList.add('active');
+      }
+    }
+
+    function filterProjects(category) {
+      // Update pill states
+      document.querySelectorAll('.filter-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.filter === category);
+      });
+      // Show/hide cards
+      document.querySelectorAll('.project-card').forEach(card => {
+        const match = category === 'all' || card.dataset.category === category;
+        card.classList.toggle('hidden', !match);
+      });
+    }
+  </script>
+
+  <!-- ══════════════════════════════════
+       SLIDE-IN DETAIL PANEL
+  ══════════════════════════════════ -->
+  <div class="panel-backdrop" id="panel-backdrop" onclick="closePanel()"></div>
+
+  <div class="detail-panel" id="detail-panel">
+    <!-- Header -->
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <button class="panel-close" onclick="closePanel()">✕</button>
+        <div id="panel-header-badge"></div>
+      </div>
+      <div class="panel-nav">
+        <button class="panel-nav-btn" onclick="navigatePanel(-1)">← Prev</button>
+        <button class="panel-nav-btn" onclick="navigatePanel(1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="panel-hero" id="panel-hero"></div>
+
+    <!-- Body -->
+    <div class="panel-body" id="panel-body"></div>
+  </div>
+
+  <script>
+    // ─── PROJECT DATA ───
+    const PROJECTS = [
+      {
+        id: 'insurverse',
+        title: 'Insurverse',
+        title_th: 'Insurverse',
+        client: 'Extend IT Resource · 2022–Present',
+        client_th: 'Extend IT Resource · 2565–ปัจจุบัน',
+        category: 'insurtech',
+        badgeClass: 'badge-insurtech',
+        badgeLabel: 'InsurTech',
+        image: 'uploads/Insurverse.png',
+        role: 'Lead UX/UI Designer',
+        role_th: 'หัวหน้า UX/UI Designer',
+        timeline: '2022 – Present',
+        timeline_th: '2565 – ปัจจุบัน',
+        tools: ['Figma', 'ProtoPie', 'Miro', 'Figma AI'],
+        overview: 'Insurverse is an online car insurance platform enabling users to search, compare, buy, and complete e-inspection entirely online. The platform covers quote engines, multi-carrier integrations, payment, e-policy delivery, and a 7-step vehicle inspection flow.',
+        overview_th: 'Insurverse คือแพลตฟอร์มประกันภัยรถยนต์ออนไลน์ที่ช่วยให้ผู้ใช้ค้นหา เปรียบเทียบ ซื้อ และตรวจสภาพรถแบบ e-inspection ได้ครบจบในที่เดียว ครอบคลุมตั้งแต่ระบบคำนวณเบี้ย การเชื่อมต่อหลายบริษัทประกัน การชำระเงิน ไปจนถึงการส่งกรมธรรม์อิเล็กทรอนิกส์',
+        problem: 'Traditional insurance required in-person visits, opaque pricing, and complex paperwork. The e-inspection flow had 45% abandonment at step 3 of 7 due to unclear instructions and technical jargon.',
+        problem_th: 'การทำประกันแบบดั้งเดิมต้องเดินทางไปสาขา มีราคาที่ไม่โปร่งใส และเอกสารที่ซับซ้อน ขั้นตอนการตรวจสภาพออนไลน์มีอัตราการละทิ้ง 45% ที่ขั้นตอนที่ 3 จากทั้งหมด 7 ขั้น เพราะคำแนะนำไม่ชัดเจนและใช้ศัพท์เทคนิคมากเกินไป',
+        solution: 'Redesigned the inspection flow with step-by-step guidance, QR deep-link for mobile cameras, and plain-language copy. Simplified the comparison UI to surface only what users need to decide — not everything available.',
+        solution_th: 'ออกแบบกระบวนการตรวจสภาพใหม่ด้วยคำแนะนำแบบทีละขั้น QR deep-link สำหรับกล้องมือถือ และภาษาที่เข้าใจง่าย ปรับ UI การเปรียบเทียบให้แสดงเฉพาะข้อมูลที่จำเป็นต่อการตัดสินใจ',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Usability testing with 12 participants, drop-off analysis from analytics, stakeholder interviews with 3 insurance carriers.', desc_th: 'ทดสอบการใช้งานกับ 12 คน วิเคราะห์จุดที่ผู้ใช้ออกจากระบบ และสัมภาษณ์ผู้มีส่วนได้ส่วนเสียจาก 3 บริษัทประกัน' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Low-fi flows covering 40+ screens. IA restructured around user mental model (not product logic).', desc_th: 'สร้าง Low-fi flow ครอบคลุมกว่า 40 หน้าจอ ปรับโครงสร้าง IA ให้สอดคล้องกับ Mental Model ของผู้ใช้' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Design System built in Figma with 200+ components, WCAG AA compliance across all screens.', desc_th: 'สร้าง Design System ใน Figma มีกว่า 200 คอมโพเนนต์ ผ่านมาตรฐาน WCAG AA ทุกหน้าจอ' },
+          { name: 'Test & Iterate', name_th: 'ทดสอบ & ปรับปรุง', desc: 'A/B tested simplified vs full inspection flow. Validated with 20-person moderated sessions.', desc_th: 'ทดสอบ A/B ระหว่าง flow แบบเรียบง่ายและแบบเต็ม ยืนยันด้วยการทดสอบแบบ moderated 20 คน' }
+        ],
+        impact: [
+          { number: '−35%', label: 'Drop-off rate' },
+          { number: '4.8/5', label: 'CSAT score' },
+          { number: 'WCAG AA', label: 'Compliant' },
+          { number: '100%', label: 'DS consistency' }
+        ],
+        gallery: ['uploads/Insurverse.png']
+      },
+      {
+        id: 'roddonjai',
+        title: 'Roddonjai · TTB Bank',
+        title_th: 'รดด้นใจ · TTB Bank',
+        client: 'Extend IT Resource · TTB Bank',
+        client_th: 'Extend IT Resource · ธนาคาร TTB',
+        category: 'marketplace',
+        badgeClass: 'badge-marketplace',
+        badgeLabel: 'E-Marketplace',
+        image: 'uploads/Roddonjai.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2022–2023',
+        timeline_th: '2565–2566',
+        tools: ['Figma', 'Miro', 'FigJam'],
+        overview: 'An online platform for buying and selling used cars with 50,000+ listings. Features comprehensive search with brand, model, price, and condition filters, detailed car profiles, Blue Book pricing, and step-by-step purchase guidance.',
+        overview_th: 'แพลตฟอร์มออนไลน์สำหรับซื้อขายรถยนต์มือสองกว่า 50,000 รายการ มีระบบค้นหาครอบคลุมตามยี่ห้อ รุ่น ราคา และสภาพรถ พร้อมข้อมูลรถละเอียด ราคาบลูบุ๊ค และคำแนะนำขั้นตอนการซื้อ',
+        problem: 'Overwhelming technical data across inconsistent listing formats made buyers unable to compare or decide. Loan application rates were low despite high listing views.',
+        problem_th: 'ข้อมูลทางเทคนิคที่มากเกินไปและรูปแบบการแสดงผลที่ไม่สม่ำเสมอทำให้ผู้ซื้อไม่สามารถเปรียบเทียบหรือตัดสินใจได้ อัตราการสมัครสินเชื่อต่ำแม้จะมียอดเข้าชมสูง',
+        solution: 'Surfaced only 3 key signals on the card view (price, grade, mileage) with full details on expansion. A/B tested minimal card vs feature-dense card — minimal won +18% engagement.',
+        solution_th: 'แสดงเพียง 3 ข้อมูลสำคัญบนการ์ด (ราคา เกรด และระยะทาง) โดยรายละเอียดเพิ่มเติมจะแสดงเมื่อกดขยาย ทดสอบ A/B ระหว่างการ์ดแบบเรียบกับแบบข้อมูลเยอะ — แบบเรียบชนะด้วยการมีส่วนร่วมสูงกว่า 18%',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Card sorting with 15 users to identify top 3 decision factors. Heatmap analysis on existing listing pages.', desc_th: 'ทำ Card sorting กับผู้ใช้ 15 คนเพื่อระบุ 3 ปัจจัยการตัดสินใจสำคัญ วิเคราะห์ Heatmap บนหน้าประกาศที่มีอยู่' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Card variants mapped and tested with 3 layout directions across user groups.', desc_th: 'สร้างรูปแบบการ์ดหลายแบบและทดสอบกับ 3 ทิศทาง Layout ในกลุ่มผู้ใช้ต่างๆ' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Aligned to TTB brand guidelines. Designed car detail, comparison, and loan application screens.', desc_th: 'ออกแบบให้สอดคล้องกับ Brand Guidelines ของ TTB ครอบคลุมหน้ารายละเอียดรถ หน้าเปรียบเทียบ และหน้าสมัครสินเชื่อ' },
+          { name: 'Test & Iterate', name_th: 'ทดสอบ & ปรับปรุง', desc: 'A/B tested card layouts in production — minimal card won +18% engagement and 3× more loan applications.', desc_th: 'ทดสอบ A/B Layout การ์ดใน Production — การ์ดแบบเรียบชนะด้วยการมีส่วนร่วมสูงกว่า 18% และยอดสมัครสินเชื่อมากกว่า 3 เท่า' }
+        ],
+        impact: [
+          { number: '+25%', label: 'Loan apps (month 1)', label_th: 'ยอดสมัครสินเชื่อ (เดือนแรก)' },
+          { number: '+18%', label: 'Card engagement', label_th: 'การมีส่วนร่วมกับการ์ด' },
+          { number: '3×', label: 'Conversion vs old', label_th: 'Conversion เทียบเวอร์ชันเก่า' }
+        ],
+        gallery: []
+      },
+      {
+        id: 'bki',
+        title: 'Bangkok Insurance (BKI) Revamp',
+        title_th: 'ปรับโฉม Bangkok Insurance (BKI)',
+        client: 'Extend IT Resource',
+        client_th: 'Extend IT Resource',
+        category: 'insurtech',
+        badgeClass: 'badge-insurtech',
+        badgeLabel: 'InsurTech',
+        image: 'uploads/กรุงเทพประกันภัย.png',
+        role: 'Lead UX/UI Designer',
+        role_th: 'หัวหน้า UX/UI Designer',
+        timeline: '2023',
+        timeline_th: '2566',
+        tools: ['Figma', 'FigJam', 'Miro'],
+        overview: 'Full website revamp for Bangkok Insurance — redesigning the auto insurance form, comparison tool, and policy management. Built a Design System from scratch while simultaneously redesigning all product screens.',
+        overview_th: 'ปรับโฉมเว็บไซต์ Bangkok Insurance ทั้งหมด — ออกแบบฟอร์มประกันรถยนต์ เครื่องมือเปรียบเทียบ และการจัดการกรมธรรม์ใหม่ พร้อมสร้าง Design System ตั้งแต่ต้นในขณะเดียวกัน',
+        problem: 'No existing design system. Inconsistent UI across 3 products built by different teams. WCAG accessibility ignored, creating legal and reputational risk.',
+        problem_th: 'ไม่มี Design System เดิม UI ไม่สม่ำเสมอใน 3 ผลิตภัณฑ์ที่สร้างโดยทีมต่างกัน มาตรฐาน WCAG ถูกละเลยจนก่อให้เกิดความเสี่ยงด้านกฎหมายและชื่อเสียง',
+        solution: 'DS-first approach: 2 weeks building the component library before any screen design. Framed accessibility as legal/market risk to stakeholders — it became a priority.',
+        solution_th: 'ใช้แนวทาง DS-first: ใช้เวลา 2 สัปดาห์สร้าง Component Library ก่อนออกแบบหน้าจอใดๆ นำเสนอ Accessibility ในฐานะความเสี่ยงทางกฎหมายและตลาดต่อ Stakeholder จนกลายเป็นเรื่องสำคัญ',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Audit of existing 3 products. Identified 60+ UI inconsistencies. Stakeholder alignment workshop.', desc_th: 'ตรวจสอบ 3 ผลิตภัณฑ์ที่มีอยู่ พบความไม่สม่ำเสมอของ UI กว่า 60 จุด จัดประชุม Stakeholder เพื่อสร้างความเข้าใจร่วมกัน' },
+          { name: 'Design System', name_th: 'ระบบดีไซน์', desc: '200+ components in Figma, tokens for color/spacing/type, WCAG AA documented and tested.', desc_th: 'สร้างกว่า 200 Component ใน Figma พร้อม Token สำหรับสี ระยะห่าง และตัวอักษร ทดสอบและจัดทำเอกสาร WCAG AA' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Redesigned insurance form, comparison table, and policy management. Clear step-by-step structure.', desc_th: 'ออกแบบฟอร์มประกันภัย ตารางเปรียบเทียบ และการจัดการกรมธรรม์ใหม่ โครงสร้างแบบ Step-by-step ที่ชัดเจน' },
+          { name: 'Handoff', name_th: 'ส่งมอบงาน', desc: 'Developer handoff package with annotation, interaction specs, and responsive behavior docs.', desc_th: 'จัดทำชุดเอกสาร Handoff พร้อม Annotation สเปค Interaction และเอกสาร Responsive behavior' }
+        ],
+        impact: [
+          { number: 'WCAG AA', label: 'Full compliance', label_th: 'ผ่านมาตรฐานครบ' },
+          { number: '1 DS', label: 'Powers 3 products', label_th: 'รองรับ 3 ผลิตภัณฑ์' },
+          { number: '−4 wks', label: 'Dev handoff saved', label_th: 'ประหยัดเวลา Handoff' }
+        ],
+        gallery: ['uploads/กรุงเทพประกันภัย.png']
+      },
+      {
+        id: 'goodmoney',
+        title: 'Good Money · GSB',
+        title_th: 'Good Money · ธนาคารออมสิน',
+        client: 'Government Savings Bank',
+        client_th: 'ธนาคารออมสิน',
+        category: 'fintech',
+        badgeClass: 'badge-fintech',
+        badgeLabel: 'FinTech',
+        image: 'uploads/Good Money.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2023',
+        timeline_th: '2566',
+        tools: ['Figma', 'ProtoPie', 'Miro'],
+        overview: 'A personal loan mobile app allowing users to simulate repayment schedules, select occupation/income/loan conditions, and track repayments — designed for all age groups including elderly users with low digital literacy.',
+        overview_th: 'แอปสินเชื่อส่วนบุคคลบนมือถือที่ให้ผู้ใช้จำลองตารางผ่อนชำระ เลือกอาชีพ รายได้ และเงื่อนไขสินเชื่อ พร้อมติดตามการผ่อนชำระ — ออกแบบให้เหมาะกับทุกวัยรวมถึงผู้สูงอายุที่มีทักษะดิจิทัลน้อย',
+        problem: 'Financial jargon and complex multi-page forms caused anxiety and abandonment. Elderly users struggled with small touch targets and unclear terminology.',
+        problem_th: 'ศัพท์ทางการเงินและฟอร์มหลายหน้าที่ซับซ้อนทำให้ผู้ใช้วิตกกังวลและออกจากระบบ ผู้สูงอายุมีปัญหากับปุ่มขนาดเล็กและคำศัพท์ที่ไม่คุ้นเคย',
+        solution: 'Plain language throughout. Large touch targets (min 48px). High contrast. Loan simulator upfront — let users understand before committing. Progressive disclosure for advanced options.',
+        solution_th: 'ใช้ภาษาที่เข้าใจง่ายตลอด ปุ่มขนาดใหญ่ (ขั้นต่ำ 48px) คอนทราสต์สูง มีเครื่องมือจำลองสินเชื่อตั้งแต่แรก และใช้ Progressive disclosure สำหรับตัวเลือกขั้นสูง',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Interviews with 8 users across age groups 25–65. Accessibility audit against WCAG 2.1 AA.', desc_th: 'สัมภาษณ์ผู้ใช้ 8 คนจากกลุ่มอายุ 25–65 ปี ตรวจสอบ Accessibility ตามมาตรฐาน WCAG 2.1 AA' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Simplified 5-step loan flow. Each step max 2 inputs. Repayment preview before submission.', desc_th: 'ออกแบบ Flow สินเชื่อ 5 ขั้นตอนที่เรียบง่าย แต่ละขั้นมีช่องกรอกไม่เกิน 2 ช่อง พร้อม Preview ก่อนยืนยัน' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'GSB brand applied with enhanced contrast ratios. Icon-supported labels for all actions.', desc_th: 'ใช้ Brand ของธนาคารออมสินพร้อมเพิ่ม Contrast ratio มี Icon ประกอบทุก Action เพื่อความชัดเจน' },
+          { name: 'Test', name_th: 'ทดสอบ', desc: 'Moderated testing with 6 participants aged 50+. Iterated on copy and icon clarity.', desc_th: 'ทดสอบแบบ Moderated กับผู้เข้าร่วม 6 คนอายุ 50+ ปรับปรุงข้อความและความชัดเจนของ Icon' }
+        ],
+        impact: [
+          { number: 'All ages', label: 'Inclusive design', label_th: 'ออกแบบครอบคลุมทุกวัย' },
+          { number: 'Mobile-first', label: 'Responsive', label_th: 'รองรับมือถือเป็นหลัก' },
+          { number: 'WCAG AA', label: 'Accessible', label_th: 'มาตรฐาน Accessibility' }
+        ],
+        gallery: ['uploads/Good Money.png']
+      },
+      {
+        id: 'gistda',
+        title: 'GISTDA Green Office',
+        title_th: 'GISTDA Green Office',
+        client: 'Geo-Informatics & Space Technology Agency',
+        client_th: 'สำนักงานพัฒนาเทคโนโลยีอวกาศและภูมิสารสนเทศ',
+        category: 'govtech',
+        badgeClass: 'badge-govtech',
+        badgeLabel: 'GovTech',
+        image: 'uploads/Green Office.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2023–2024',
+        timeline_th: '2566–2567',
+        tools: ['Figma', 'FigJam', 'Miro'],
+        overview: 'A centralized platform to communicate GISTDA\'s Green Office initiative — environmental policies, energy/carbon statistics, eco campaigns — serving staff, executives, partner organizations, and the public on one platform.',
+        overview_th: 'แพลตฟอร์มกลางสำหรับสื่อสารโครงการ Green Office ของ GISTDA ครอบคลุมนโยบายสิ่งแวดล้อม สถิติพลังงาน/คาร์บอน และแคมเปญรักษ์โลก รองรับ 4 กลุ่มผู้ใช้บนแพลตฟอร์มเดียว',
+        problem: '3 very different user groups needed different information depths from the same data. Staff needed operational details, executives needed summaries, and the public needed educational context.',
+        problem_th: '3 กลุ่มผู้ใช้ที่แตกต่างกันมากต้องการข้อมูลในระดับความลึกต่างกันจากข้อมูลชุดเดียวกัน พนักงานต้องการรายละเอียดการปฏิบัติงาน ผู้บริหารต้องการสรุป และประชาชนทั่วไปต้องการข้อมูลเชิงให้ความรู้',
+        solution: 'Role-based information architecture with the same underlying data presented through 3 distinct entry points and content densities. CSV/PDF export dashboard for executive reporting.',
+        solution_th: 'ออกแบบ Information Architecture แบบตามบทบาท โดยข้อมูลเดียวกันถูกนำเสนอผ่าน 3 จุดเข้าถึงและความหนาแน่นของเนื้อหาที่ต่างกัน พร้อม Dashboard ส่งออก CSV/PDF สำหรับผู้บริหาร',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Stakeholder interviews across 4 user types. Content audit of existing internal documents.', desc_th: 'สัมภาษณ์ Stakeholder จาก 4 กลุ่มผู้ใช้ ตรวจสอบเนื้อหาจากเอกสารภายในที่มีอยู่' },
+          { name: 'IA Design', name_th: 'ออกแบบ IA', desc: 'Parallel IA for 3 user roles. Card sorting workshops to validate navigation structure.', desc_th: 'ออกแบบ IA แบบขนานสำหรับ 3 บทบาทผู้ใช้ จัดเวิร์กช็อป Card sorting เพื่อยืนยันโครงสร้างการนำทาง' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Fully responsive (desktop, tablet, mobile). Data visualizations: bar charts, progress tracking, energy stats.', desc_th: 'ออกแบบ Responsive ครบทุกอุปกรณ์ มี Data visualization แผนภูมิแท่ง ติดตามความคืบหน้า และสถิติพลังงาน' },
+          { name: 'CMS Setup', name_th: 'ตั้งค่า CMS', desc: 'Documented CMS flows for content editors to update stats and campaigns independently.', desc_th: 'จัดทำเอกสาร CMS Flow ให้ผู้ดูแลเนื้อหาสามารถอัปเดตสถิติและแคมเปญได้อย่างอิสระ' }
+        ],
+        impact: [
+          { number: '3 roles', label: 'User types served', label_th: 'กลุ่มผู้ใช้ที่รองรับ' },
+          { number: 'CSV/PDF', label: 'Export dashboard', label_th: 'Dashboard ส่งออกได้' },
+          { number: 'Responsive', label: 'All devices', label_th: 'ทุกอุปกรณ์' }
+        ],
+        gallery: ['uploads/Green Office.png', 'uploads/สำนักงานพัฒนาเทคโนโลยี อวกาศและภูมิสารสนเทศ (องค์การมหาชน).png']
+      },
+      {
+        id: 'jobsync',
+        title: 'Job Sync',
+        title_th: 'Job Sync',
+        client: 'Extend IT Resource',
+        client_th: 'Extend IT Resource',
+        category: 'marketplace',
+        badgeClass: 'badge-marketplace',
+        badgeLabel: 'E-Marketplace',
+        image: 'uploads/Job Sync.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2023',
+        timeline_th: '2566',
+        tools: ['Figma', 'FigJam', 'ProtoPie'],
+        overview: 'An online job search platform connecting job seekers with relevant opportunities. Includes AI-powered recommendations, 1-click apply, advanced filters, and company profile integration — serving fresh graduates to C-suite.',
+        overview_th: 'แพลตฟอร์มค้นหางานออนไลน์ที่เชื่อมผู้หางานกับโอกาสที่เหมาะสม มีระบบแนะนำงานด้วย AI กดสมัครได้ด้วยคลิกเดียว ฟิลเตอร์ขั้นสูง และเชื่อมต่อโปรไฟล์บริษัท รองรับตั้งแต่นักศึกษาจบใหม่ถึงระดับผู้บริหาร',
+        problem: 'Job seekers needed to search multiple platforms and repeatedly fill forms. Employers spent excessive time filtering unsuitable applicants. A single platform serving both groups with opposite needs.',
+        problem_th: 'ผู้หางานต้องค้นหาจากหลายแพลตฟอร์มและกรอกฟอร์มซ้ำๆ ผู้ประกอบการเสียเวลามากในการกรองผู้สมัครที่ไม่เหมาะสม แพลตฟอร์มเดียวต้องรองรับสองกลุ่มที่มีความต้องการตรงข้ามกัน',
+        solution: 'Unified search with progressive disclosure — simple by default, advanced filters on demand. 1-click apply for logged-in users. AI recommendation engine surfacing relevant roles based on profile and history.',
+        solution_th: 'ระบบค้นหาเดียวแบบ Progressive disclosure — เรียบง่ายเป็นค่าเริ่มต้น ฟิลเตอร์ขั้นสูงเมื่อต้องการ กดสมัครได้ในคลิกเดียวสำหรับผู้ใช้ที่ล็อกอินแล้ว และ AI แนะนำตำแหน่งที่เกี่ยวข้องตามโปรไฟล์และประวัติ',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Interviewed 10 job seekers and 5 recruiters. Identified top pain points: redundant forms and irrelevant results.', desc_th: 'สัมภาษณ์ผู้หางาน 10 คน และผู้สรรหา 5 คน พบ Pain point สำคัญ: ฟอร์มซ้ำซ้อนและผลลัพธ์ที่ไม่เกี่ยวข้อง' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Dual-persona flows for job seekers and recruiters. Unified search with role-based filter defaults.', desc_th: 'ออกแบบ Flow แบบ Dual-persona สำหรับผู้หางานและผู้สรรหา ระบบค้นหาเดียวที่มีค่าเริ่มต้นฟิลเตอร์ตามบทบาท' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Card grid for listings, detailed job view, 1-click apply flow, and employer dashboard.', desc_th: 'Card grid สำหรับรายการงาน หน้ารายละเอียดงาน Flow สมัครคลิกเดียว และ Dashboard สำหรับนายจ้าง' },
+          { name: 'Test', name_th: 'ทดสอบ', desc: 'Task-based usability testing: time-to-apply benchmark. Iterated on filter discoverability.', desc_th: 'ทดสอบ Usability แบบ Task-based วัด Benchmark เวลาสมัครงาน ปรับปรุงการค้นพบ Filter' }
+        ],
+        impact: [
+          { number: '1-click', label: 'Apply system', label_th: 'ระบบสมัครงาน' },
+          { number: 'AI', label: 'Job recommendations', label_th: 'แนะนำงานด้วย AI' },
+          { number: 'Dual', label: 'Persona design', label_th: 'ออกแบบ 2 Persona' }
+        ],
+        gallery: ['uploads/Job Sync.png']
+      },
+      {
+        id: 'honeybadger',
+        title: 'Honey Badger · GB Limousine',
+        title_th: 'Honey Badger · GB Limousine',
+        client: 'GB Limousine',
+        client_th: 'GB Limousine',
+        category: 'logistics',
+        badgeClass: 'badge-logistics',
+        badgeLabel: 'Logistics',
+        image: 'uploads/Honey Badger.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2023',
+        timeline_th: '2566',
+        tools: ['Figma', 'Adobe XD'],
+        overview: 'A booking website for VIP limousine and Fast-Track airport services. Features service-type search, real-time availability, detailed vehicle information, pricing, and luxury brand aesthetic — serving premium travel clients.',
+        overview_th: 'เว็บไซต์จองบริการลิมูซีน VIP และ Fast-Track ที่สนามบิน มีระบบค้นหาตามประเภทบริการ สถานะว่างแบบ Real-time ข้อมูลรถ ราคา และ Aesthetic แบรนด์ระดับหรู สำหรับลูกค้า Premium',
+        problem: 'Luxury brand identity required premium visual language, but the booking flow had to work across all devices including mid-range phones in an airport context — high stress, time pressure.',
+        problem_th: 'เอกลักษณ์แบรนด์ Luxury ต้องการภาษาภาพที่หรูหรา แต่ Flow การจองต้องทำงานได้บนทุกอุปกรณ์รวมถึงโทรศัพท์ระดับกลาง ในสภาพแวดล้อมสนามบินที่มีความเครียดและแรงกดดันด้านเวลา',
+        solution: 'Dark premium UI with large vehicle imagery, optimized with lazy loading. Frictionless booking: service type → date/time → vehicle → confirm in 4 steps. Mobile-first interactions.',
+        solution_th: 'UI สีเข้มระดับพรีเมียมพร้อมภาพรถขนาดใหญ่ที่ Optimize ด้วย Lazy loading การจองไร้แรงเสียดทาน: ประเภทบริการ → วันเวลา → รถ → ยืนยัน ใน 4 ขั้นตอน Interaction แบบ Mobile-first',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Brand analysis and competitor audit of 5 luxury travel brands. User context mapping for airport scenarios.', desc_th: 'วิเคราะห์แบรนด์และตรวจสอบคู่แข่ง 5 แบรนด์ท่องเที่ยว Luxury จัดทำ User Context Mapping สำหรับสถานการณ์ที่สนามบิน' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Booking flow optimized for speed. Minimal input steps. Date/time picker designed for one-hand use.', desc_th: 'ออกแบบ Flow การจองเพื่อความเร็ว ขั้นตอนการกรอกน้อยที่สุด Date/time picker ออกแบบสำหรับใช้มือเดียว' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'Dark luxury aesthetic. Full-bleed vehicle imagery balanced with performance budget constraints.', desc_th: 'Aesthetic สีเข้มระดับ Luxury ภาพรถแบบ Full-bleed ที่สมดุลกับข้อจำกัด Performance budget' },
+          { name: 'Test', name_th: 'ทดสอบ', desc: 'Airport-context simulation testing with 5 participants. Time-to-book benchmark under 90 seconds.', desc_th: 'ทดสอบจำลองสถานการณ์สนามบินกับ 5 คน Benchmark เวลาจองต้องไม่เกิน 90 วินาที' }
+        ],
+        impact: [
+          { number: 'Luxury', label: 'Brand identity', label_th: 'เอกลักษณ์แบรนด์' },
+          { number: '4 steps', label: 'To complete booking', label_th: 'จนถึงจบการจอง' },
+          { number: 'Real-time', label: 'Availability', label_th: 'สถานะว่างแบบ Real-time' }
+        ],
+        gallery: ['uploads/Honey Badger.png', 'uploads/Honey Badger-1.png']
+      },
+      {
+        id: 'smartticket',
+        title: 'Smart Ticket · POS',
+        title_th: 'Smart Ticket · POS',
+        client: 'Tourist Attractions Management',
+        client_th: 'บริหารจัดการแหล่งท่องเที่ยว',
+        category: 'pos',
+        badgeClass: 'badge-pos',
+        badgeLabel: 'POS',
+        image: 'uploads/Smart Ticket.png',
+        role: 'UX/UI Designer',
+        role_th: 'นักออกแบบ UX/UI',
+        timeline: '2023',
+        timeline_th: '2566',
+        tools: ['Figma', 'FigJam'],
+        overview: 'A ticket sales and verification POS system for tourist attractions. Displays ticket types, real-time availability, and multi-currency pricing (LAK, THB, USD, CNY) on a single screen — designed for minimal training time.',
+        overview_th: 'ระบบขายและตรวจสอบบัตร POS สำหรับแหล่งท่องเที่ยว แสดงประเภทบัตร สถานะว่างแบบ Real-time และราคาหลายสกุลเงิน (LAK, THB, USD, CNY) บนหน้าจอเดียว ออกแบบเพื่อลดเวลาฝึกอบรม',
+        problem: 'High-traffic attraction entry points meant staff needed to sell tickets quickly under pressure. Multi-currency calculation was error-prone. Staff turnover meant onboarding needed to be under 30 minutes.',
+        problem_th: 'จุดเข้าชมที่มีผู้คนหนาแน่นทำให้พนักงานต้องขายบัตรอย่างรวดเร็วภายใต้ความกดดัน การคำนวณหลายสกุลเงินมักเกิดข้อผิดพลาด การหมุนเวียนพนักงานทำให้ต้องฝึกอบรมได้ภายใน 30 นาที',
+        solution: 'Single-screen layout showing all ticket types, currencies, and totals simultaneously. No pagination or drilling — everything visible at once. Large tap targets optimized for tablet POS hardware.',
+        solution_th: 'Layout หน้าจอเดียวแสดงประเภทบัตร สกุลเงิน และยอดรวมพร้อมกันทั้งหมด ไม่มี Pagination หรือการ Drill down — ทุกอย่างมองเห็นได้ทันที ปุ่มขนาดใหญ่ Optimize สำหรับ Hardware Tablet POS',
+        process: [
+          { name: 'Research', name_th: 'วิจัย', desc: 'Observed 3 days of actual ticket counter operations. Mapped high-error moments in existing system.', desc_th: 'สังเกตการณ์การปฏิบัติงานจริงที่เคาน์เตอร์ขายบัตร 3 วัน จัดทำแผนจุดที่เกิดข้อผิดพลาดบ่อยในระบบเดิม' },
+          { name: 'Wireframe', name_th: 'ไวร์เฟรม', desc: 'Single-screen vs multi-screen comparison tested with 4 counter staff. Single screen won unanimously.', desc_th: 'ทดสอบเปรียบเทียบหน้าจอเดียวกับหลายหน้าจอกับพนักงานเคาน์เตอร์ 4 คน หน้าจอเดียวชนะอย่างเป็นเอกฉันท์' },
+          { name: 'UI Design', name_th: 'ออกแบบ UI', desc: 'High-contrast layout for outdoor/bright environments. Currency toggle with automatic calculation.', desc_th: 'Layout Contrast สูงสำหรับสภาพแวดล้อมกลางแจ้งหรือสว่าง ปุ่มสลับสกุลเงินพร้อมคำนวณอัตโนมัติ' },
+          { name: 'Test', name_th: 'ทดสอบ', desc: 'Simulated peak-hour testing with 8 staff members. Achieved 20-min onboarding vs 2-hour planned.', desc_th: 'ทดสอบจำลองชั่วโมงเร่งด่วนกับพนักงาน 8 คน บรรลุเป้า Onboarding 20 นาที เทียบกับที่วางแผนไว้ 2 ชั่วโมง' }
+        ],
+        impact: [
+          { number: '4 currencies', label: 'LAK, THB, USD, CNY', label_th: '4 สกุลเงิน' },
+          { number: '20 min', label: 'Staff onboarding', label_th: 'เวลาฝึกพนักงาน' },
+          { number: '1 screen', label: 'Full transaction', label_th: 'ทำธุรกรรมได้ครบ' }
+        ],
+        gallery: ['uploads/Smart Ticket.png']
+      }
+    ];
+
+    let currentProjectIndex = 0;
+
+    function openPanel(projectId) {
+      const idx = PROJECTS.findIndex(p => p.id === projectId);
+      if (idx === -1) return;
+      currentProjectIndex = idx;
+      renderPanel(PROJECTS[idx]);
+      document.getElementById('panel-backdrop').classList.add('open');
+      document.getElementById('detail-panel').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePanel() {
+      document.getElementById('panel-backdrop').classList.remove('open');
+      document.getElementById('detail-panel').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function navigatePanel(dir) {
+      currentProjectIndex = (currentProjectIndex + dir + PROJECTS.length) % PROJECTS.length;
+      renderPanel(PROJECTS[currentProjectIndex]);
+      document.getElementById('detail-panel').scrollTop = 0;
+    }
+
+    function renderPanel(p) {
+      const isTh = typeof currentLang !== 'undefined' && currentLang === 'th';
+      const title = isTh && p.title_th ? p.title_th : p.title;
+      const client = isTh && p.client_th ? p.client_th : p.client;
+      const role = isTh && p.role_th ? p.role_th : p.role;
+      const timeline = isTh && p.timeline_th ? p.timeline_th : p.timeline;
+      const overview = isTh && p.overview_th ? p.overview_th : p.overview;
+      const problem = isTh && p.problem_th ? p.problem_th : p.problem;
+      const solution = isTh && p.solution_th ? p.solution_th : p.solution;
+
+      // Labels
+      const lOverview = isTh ? 'ภาพรวม' : 'Overview';
+      const lProbSol = isTh ? 'ปัญหา & แนวทาง' : 'Problem & Solution';
+      const lProblem = isTh ? 'ปัญหา' : 'Problem';
+      const lSolution = isTh ? 'แนวทาง' : 'Solution';
+      const lProcess = isTh ? 'กระบวนการออกแบบ' : 'Design Process';
+      const lImpact = isTh ? 'ผลลัพธ์' : 'Impact';
+      const lScreenshots = isTh ? 'ภาพหน้าจอ' : 'Screenshots';
+      const lRole = isTh ? 'บทบาท' : 'Role';
+      const lTimeline = isTh ? 'ระยะเวลา' : 'Timeline';
+      const lTools = isTh ? 'เครื่องมือ' : 'Tools';
+      // Header badge
+      document.getElementById('panel-header-badge').innerHTML =
+        `<span class="badge ${p.badgeClass}">${p.badgeLabel}</span>`;
+
+      // Hero image
+      const hero = document.getElementById('panel-hero');
+      if (p.image) {
+        hero.innerHTML = `<img src="${p.image}" alt="${title}" />`;
+        const img = hero.querySelector('img');
+        if (!img.complete) {
+          hero.classList.add('img-skeleton');
+          img.addEventListener('load', () => hero.classList.remove('img-skeleton'));
+        }
+      } else {
+        hero.innerHTML = `<div class="panel-hero-placeholder"><span>${title}</span></div>`;
+      }
+
+      // Body
+      const toolTags = p.tools.map(t => `<span class="panel-tag">${t}</span>`).join('');
+      const processSteps = p.process.map(s => `
+        <div class="panel-process-step">
+          <div class="panel-step-dot"></div>
+          <div>
+            <div class="panel-step-name">${isTh && s.name_th ? s.name_th : s.name}</div>
+            <div class="panel-step-desc">${isTh && s.desc_th ? s.desc_th : s.desc}</div>
+          </div>
+        </div>`).join('');
+      const impactCells = p.impact.map(m => `
+        <div class="panel-impact-cell">
+          <div class="panel-impact-number">${m.number}</div>
+          <div class="panel-impact-label">${isTh && m.label_th ? m.label_th : m.label}</div>
+        </div>`).join('');
+
+      // Gallery
+      let galleryHTML = '';
+      if (p.gallery && p.gallery.length > 0) {
+        const imgs = p.gallery.map((src, i) =>
+          `<div class="panel-gallery-img${i === 0 && p.gallery.length > 1 ? ' wide' : ''}">
+            <img src="${src}" alt="Screenshot" />
+          </div>`).join('');
+        galleryHTML = `
+          <div class="panel-section">
+            <div class="panel-section-title">${lScreenshots}</div>
+            <div class="panel-gallery">${imgs}</div>
+          </div>`;
+      }
+
+      document.getElementById('panel-body').innerHTML = `
+        <div>
+          <div class="panel-title">${title}</div>
+          <div class="panel-client">${client}</div>
+        </div>
+
+        <div class="panel-overview">
+          <div class="panel-overview-cell">
+            <div class="panel-overview-label">${lRole}</div>
+            <div class="panel-overview-value">${role}</div>
+          </div>
+          <div class="panel-overview-cell">
+            <div class="panel-overview-label">${lTimeline}</div>
+            <div class="panel-overview-value">${timeline}</div>
+          </div>
+          <div class="panel-overview-cell">
+            <div class="panel-overview-label">${lTools}</div>
+            <div class="panel-tags" style="margin-top:4px;">${toolTags}</div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-title">${lOverview}</div>
+          <div class="panel-section-text">${overview}</div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-title">${lProbSol}</div>
+          <div class="panel-ps-grid">
+            <div class="panel-ps-card">
+              <div class="panel-ps-label">${lProblem}</div>
+              <div class="panel-ps-text">${problem}</div>
+            </div>
+            <div class="panel-ps-card">
+              <div class="panel-ps-label">${lSolution}</div>
+              <div class="panel-ps-text">${solution}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-title">${lProcess}</div>
+          <div class="panel-process">${processSteps}</div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-title">${lImpact}</div>
+          <div class="panel-impact">${impactCells}</div>
+        </div>
+
+        ${galleryHTML}
+      `;
+    }
+
+    // Escape key to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePanel();
+    });
+  </script>
+
+  <script>
+  // ─── i18n TRANSLATIONS ───
+  const TRANSLATIONS = {
+    en: {
+      nav_about: 'About & Experience',
+      nav_projects: 'Projects',
+      available: 'Available',
+      hire_me: 'Download Resume',
+      hero_eyebrow: 'Profile · Bangkok, Thailand',
+      hero_hl: 'decides',
+      hero_sub: 'not just decorates.',
+      hero_body: 'Senior UX/UI Designer with 5+ years specializing in Enterprise Design Systems and Inclusive Design. Proven track record leading digital transformations for finance and insurance sectors — using data-driven insights and AI-integrated workflows to optimize real business outcomes.',
+      hero_quote: 'I believe every pixel should have a purpose and every design should tell a story. My mission is to create intuitive, inclusive, and delightful digital experiences that make people\'s lives easier.',
+      open_to_work: 'Open to work',
+      download_cv: 'Download Portfolio',
+      download_resume: 'Download CV',
+      section_skills: 'Skills',
+      section_whatido: 'What I Do',
+      wi_research_title: 'User Research',
+      wi_research_desc: 'In-depth interviews, usability testing, card sorting, and heuristic evaluation to uncover real user needs and friction points.',
+      wi_ia_title: 'Information Architecture',
+      wi_ia_desc: 'Structuring complex systems into clear, navigable hierarchies. Wireframes, user flows, and journey maps that align business goals with user needs.',
+      wi_ds_title: 'Design Systems',
+      wi_ds_desc: 'Architecting scalable component libraries in Figma with design tokens, WCAG AA compliance, and developer-ready handoff documentation.',
+      wi_ui_title: 'UI Design',
+      wi_ui_desc: 'Pixel-precise, mobile-first interfaces for web and app — balancing visual aesthetics with functional clarity across enterprise and consumer products.',
+      wi_proto_title: 'Prototyping',
+      wi_proto_desc: 'High-fidelity interactive prototypes in Figma and ProtoPie — validating complex interactions before a single line of code is written.',
+      wi_pres_title: 'UX/UI Presentation',
+      wi_pres_desc: 'Full process deck — research, IA, wireframes, UI, and outcomes. Download to see the complete design thinking behind the work.',
+      wi_pres_btn: 'Download Presentation',
+      section_experience: 'Work Experience',
+      section_education: 'Education & Certificates',
+      contact_heading: 'Let\'s build something people actually use.',
+      contact_btn: 'Download Resume',
+      projects_title: 'Projects',
+      projects_subtitle: 'Real constraints, real decisions, real impact — the full story behind every project.',
+      also_shipped: 'Also shipped',
+      exp1_desc1: 'Facilitated strategic collaboration with product managers, stakeholders, and engineering teams to translate complex business requirements into intuitive, high-performing design strategies. Spearheaded end-to-end UX/UI lifecycle from discovery and research to final delivery for high-traffic enterprise platforms — significantly enhancing user engagement and brand credibility.',
+      exp1_desc2: 'Architected and governed scalable Design Systems in Figma, streamlining design-to-development handoff and ensuring 100% visual consistency. Championed Inclusive Design and WCAG accessibility standards. Drove data-informed design decisions by leading usability testing and user research initiatives to resolve critical friction points.',
+      exp2_desc: 'Designed UI for Web and App media. Developed print, online, and advertising designs aligned with brand guidelines.',
+      exp3_desc: 'Produced promotional graphics, infographics, and digital marketing materials. Designed merchandise and event branding.',
+    },
+    th: {
+      nav_about: 'เกี่ยวกับ & ประสบการณ์',
+      nav_projects: 'ผลงาน',
+      available: 'พร้อมรับงาน',
+      hire_me: 'ดาวน์โหลด Resume',
+      hero_eyebrow: 'โปรไฟล์ · กรุงเทพฯ, ประเทศไทย',
+      hero_hl: 'ตัดสินใจ',
+      hero_sub: 'ไม่ใช่แค่ตกแต่ง',
+      hero_body: 'Senior UX/UI Designer ประสบการณ์กว่า 5 ปี เชี่ยวชาญด้าน Enterprise Design Systems และ Inclusive Design มีผลงานพิสูจน์แล้วในการนำการเปลี่ยนแปลงดิจิทัลสำหรับภาคการเงินและประกันภัย ด้วยแนวทางที่ขับเคลื่อนด้วยข้อมูลและ AI Workflow เพื่อผลลัพธ์ทางธุรกิจที่แท้จริง',
+      hero_quote: 'ผมเชื่อว่าทุกพิกเซลควรมีจุดประสงค์ และทุกดีไซน์ควรบอกเล่าเรื่องราว พันธกิจของผมคือสร้างประสบการณ์ดิจิทัลที่ใช้งานง่าย ครอบคลุมทุกคน และน่าประทับใจ เพื่อให้ชีวิตผู้ใช้งานดีขึ้น',
+      open_to_work: 'พร้อมรับงาน',
+      download_cv: 'ดาวน์โหลด Portfolio',
+      download_resume: 'ดาวน์โหลด CV',
+      section_skills: 'ทักษะ',
+      section_whatido: 'สิ่งที่ผมทำได้',
+      wi_research_title: 'วิจัยผู้ใช้',
+      wi_research_desc: 'สัมภาษณ์เชิงลึก ทดสอบการใช้งาน Card sorting และการประเมิน Heuristic เพื่อค้นหาความต้องการและจุดฝืดขัดของผู้ใช้งาน',
+      wi_ia_title: 'โครงสร้างข้อมูล',
+      wi_ia_desc: 'จัดโครงสร้างระบบซับซ้อนให้เป็นเลเยอร์ที่นำทางได้ชัดเจน Wireframe User Flow และ Journey Map',
+      wi_ds_title: 'ระบบดีไซน์',
+      wi_ds_desc: 'สร้าง Component Library ใน Figma พร้อม Design Token มาตรฐาน WCAG AA และเอกสารส่งมอบงานให้นักพัฒนา',
+      wi_ui_title: 'ออกแบบ UI',
+      wi_ui_desc: 'ออกแบบ Interface ที่แม่นยำ Mobile-first สำหรับเว็บและแอป สมดุลระหว่างความสวยงามและความชัดเจนในการใช้งาน',
+      wi_proto_title: 'โปรโตไต๊ป',
+      wi_proto_desc: 'สร้าง Prototype แบบ Interactive ความเที่ยงสูงใน Figma และ ProtoPie เพื่อยืนยัน Interaction ซับซ้อนก่อนเขียนโค้ด',
+      wi_pres_title: 'เอกสารนำเสนอ UX/UI',
+      wi_pres_desc: 'เอกสารกระบวนการครบ — วิจัย IA Wireframe UI และผลลัพธ์ ดาวน์โหลดเพื่อดู Design Thinking เบื้องหลังทุกโปรเจกต์',
+      wi_pres_btn: 'ดาวน์โหลด Presentation',
+      section_experience: 'ประสบการณ์การทำงาน',
+      section_education: 'การศึกษา & ใบรับรอง',
+      contact_heading: 'มาสร้างสิ่งที่คนใช้งานได้จริงด้วยกัน',
+      contact_btn: 'ดาวน์โหลด Resume',
+      projects_title: 'ผลงาน',
+      projects_subtitle: 'ข้อจำกัดจริง การตัดสินใจจริง ผลลัพธ์จริง — เรื่องราวเบื้องหลังทุกโปรเจกต์',
+      also_shipped: 'โปรเจกต์อื่นๆ',
+      exp1_desc1: 'อำนวยความร่วมมือเชิงกลยุทธ์ระหว่าง Product Manager, Stakeholder และทีมวิศวกรรม เพื่อแปลงความต้องการทางธุรกิจที่ซับซ้อนเป็นกลยุทธ์ดีไซน์ที่ใช้งานได้จริง นำ UX/UI lifecycle ตั้งแต่วิจัยจนถึงส่งมอบงานสำหรับ Platform สำหรับองค์กร Enterprise ที่มีผู้ใช้งานสูง เพิ่ม Engagement และความน่าเชื่อถือของแบรนด์อย่างมีนัยสำคัญ',
+      exp1_desc2: 'ออกแบบและบริหาร Design System ใน Figma เพื่อเร่งกระบวนการส่งมอบงานเดะนักพัฒนา รับรอง Inclusive Design และมาตรฐาน WCAG ขับเคลื่อนการตัดสินใจด้วยข้อมูลโดยนำการทดสอบการใช้งานและวิจัยผู้ใช้เพื่อแก้ไขจุดฝืดขัดที่สำคัญ',
+      exp2_desc: 'ออกแบบ UI สำหรับสื่อเว็บและแอป พัฒนางานออกแบบสื่อสิ่งพิมพ์ ออนไลน์ และโฆษณาที่สอดคล้องกับ Brand Guidelines',
+      exp3_desc: 'สร้างกราฟิกโปรโมต้ Infographic และสื่อการตลาดดิจิทัล ออกแบบสินค้าและอัตลักษณ์งานอีเวนต์',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = TRANSLATIONS[lang];
+
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Update tab buttons (innerHTML safe — no HTML in values)
+    document.getElementById('tab-about').textContent = t.nav_about;
+    document.getElementById('tab-projects').textContent = t.nav_projects;
+
+    // Update lang toggle button states
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'th' ? 'th' : 'en';
+
+    // Update font for Thai (better rendering)
+    if (lang === 'th') {
+      document.body.style.fontFamily = "'Noto Sans Thai', 'Inter', sans-serif";
+    } else {
+      document.body.style.fontFamily = "'Inter', sans-serif";
+    }
+
+    // Re-render panel if open
+    if (document.getElementById('detail-panel').classList.contains('open')) {
+      renderPanel(PROJECTS[currentProjectIndex]);
+    }
+
+    // Persist
+    try { localStorage.setItem('portfolio_lang', lang); } catch(e) {}
+  }
+
+  // Restore saved language
+  try {
+    const saved = localStorage.getItem('portfolio_lang');
+    if (saved === 'th') setLang('th');
+  } catch(e) {}
+  </script>
+
+</body>
+</html>
